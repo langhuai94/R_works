@@ -11,7 +11,6 @@
 # Script Description: search, install and check the package 'tidyverse'
 #
 # SETUP ------------------------------------
-
 cat("\014")                 # Clears the console
 rm(list = ls())             # Remove all variables of the work space
 
