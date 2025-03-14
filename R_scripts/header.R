@@ -1,8 +1,8 @@
 # HEADER --------------------------------------------
 #
-# Author:     Sihan Wang
+# Author:     name
 # Copyright     Copyright 2025 - Name Surname
-# Email:      1939747262@qq.com
+# Email:      mail
 #
 # Date:     2025-03-12
 #
