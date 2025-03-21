@@ -1,0 +1,114 @@
+---
+title: "W4C2_"
+output: html_document
+date: "2025-03-21"
+---
+
+# 1.factor 与 lists的操作
+## list操作符：
+```{r}
+l_1 <- list(1,c(2,3))
+l_1[2] #返回一个较小的列表，即列表中取出来的元素再自成一个列表
+l_1[[2]] #返回的是元素
+
+l_2 <- list(1,'B',3)
+str(l_2)
+
+l_3 <- list(1:3)
+l_3[[1]][3] #返回列表的第一个成分中的第3个元素
+
+```
+
+# 2. R包及其操作
+包：函数集+数据集，每个包都有自己对应的对象类型，调用该包中的数据集的数据结构，可以了解该包对应操作的数据对象类型；使用时，可能需要对数据对象进行转换，才能便于函数对象的操作
+
+```{r}
+# 生成matrix时，默认元素按列排列，即byrow=FALSE
+matrix_data <- matrix(1:8, nrow=4, byrow=FALSE)
+(df_data <- as.data.frame(matrix_data)) # 矩阵转数据框
+(matrix_data <- data.matrix(df_data)) # 数据框转矩阵
+(tib_data <- tibble::as.tibble(matrix_data))
+
+df_data[1:2] #取列
+df_data[,1:2] #取列
+df_data[1:2,] #取行
+```
+
+构建日期类型的数据：
+```{r}
+(time_data <- seq(as.Date('2004-01-01'),by='week',length.out=3))
+(time_df <- as.data.frame(time_data))
+```
+
+# 3. 函数对象
+光标在括号内按Tab键，可以查看函数的输入参数
+
+* 安装包，加载包
+```{r}
+library('tidyverse')
+# 加载后，出现其他的包是在tidyverse的基础上构建的；
+# 出现conflict，表明新加载的包中的某个函数被其他包中的同名函数干扰了
+?filter() # 曾经是多个包中的函数
+?dplyr::filter()
+?stats::filter()
+
+```
+* 内置函数，没有包，直接使用，如str(),class()
+
+```{r}
+sum(1,2,3,4,NA,na.rm=TRUE)
+paste0('hello','world','!')
+substr(x='television',start=5,stop=10) #取一定范围的字符串(sub string)
+
+library(ds4psy)
+plot_fn(x=5, y=1)
+plot_fn(x=5, y=5)
+```
+
+* 自定义函数(self-defined function)
+包括：函数名，函数和参数（自变量），函数主体（输入对象的操作处理过程，命令行），返回值
+
+考试可能考：paste与paste0的区别？paste允许指定分隔符；paste0简洁拼接
+```{r}
+add_three <- function(x){
+  y <- x + 3
+  return(y)
+}
+a <- 3
+(b <- add_three(a))
+
+# 可以将该函数单独保存为一个R脚本再加载进来
+# 如保存为该路径下的'add_three.R'
+
+source('./add_three.R')
+
+quadratic <- function(a, b, c){
+  root1 <- (- b + sqrt(b ^ 2 - 4 * a * c))/(2 * a)
+  root2 <- (- b - sqrt(b ^ 2 - 4 * a * c))/(2 * a)
+  root1 <- paste('x =' ,root1)
+  root2 <- paste('x =' ,root2)
+  if (is.nan(root1)==TRUE)
+  {
+    return('NaN results!')
+  }
+  else
+  {
+      ifelse(root1==root2 , return(root1), return(c(root1, root2)))
+  }
+}
+quadratic(1,2,3)
+
+paste0('x =', 0)
+paste('x =', 0)
+
+```
+# 4. 变量和变量名
+变量即对象的名称
+R中的无效变量：
+* 以下划线、数字或在数字前的.开头
+* 变量名中不可使用特殊字符
+* 不建议带.，会被误认为是内置函数
+* 避免名称内部空格
+* 避免内置字符如c,T,F, NA, if, else等
+有效：字母开头，可以包含数字和下划线
+

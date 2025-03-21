@@ -1,0 +1,22 @@
+---
+title: "W4C2_datafiles"
+output: html_document
+date: "2025-03-21"
+---
+
+# 1. 文件格式及来源
+数据的存储位置 + 存储格式
+R中数据文件的来源
+* R包存储数据
+* 本地或远程硬盘驱动器上的数据
+* 存储在在线服务器上的数据
+
+加载
+```{r}
+library(ade4)
+data(doubs,package='ade4')
+head(doubs)
+str(doubs)
+```
+
+homework3作业
